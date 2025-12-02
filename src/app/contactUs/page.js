@@ -2,10 +2,10 @@
 
 import Head from "next/head";
 import Navbar from "../../components/navbar/Navbar";
-import ContactUS from "../../page/contactUs/ContactPage";
+import ContactPage from "../../page/contactUs/ContactPage";
 import Footer from "../../components/footer/Footer";
 
-export default function ContactPage() {
+export default function Home() {
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ export default function ContactPage() {
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
         <main className="flex-grow">
-          <ContactUS />
+          <ContactPage />
         </main>
         <Footer />
       </div>
