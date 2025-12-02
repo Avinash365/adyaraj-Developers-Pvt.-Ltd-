@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Navbar from "../../components/navbar/Navbar";
-import ContactUS from "../../page/contactUS/contact";
+import ContactUS from "../../page/contactUs/contact";
 import Footer from "../../components/footer/Footer";
 
 export default function ContactPage() {
