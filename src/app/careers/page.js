@@ -1,5 +1,5 @@
-import Navbar from "@/components/navbar/Navbar";
-import Footer from "@/components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 import ApplicationForm from "@/page/careers/ApplicationForm";
 
 export default function Careers() {

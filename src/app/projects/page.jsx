@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
-import Projects from "@/page/projects/Projects";
-import GalleryHero from "@/page/projects/HeroSection";
+import Footer from "../../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import Projects from "../../page/projects/Projects";
+import GalleryHero from "../../page/projects/HeroSection";
 
 
 const fadeInUp = {

@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Footer from "@/components/footer/Footer";
-import Navbar from "@/components/navbar/Navbar";
-import NotificationBar from "@/components/notificationBar";
-import HeroSlider from "@/page/home/HeroSlider";
-import LatestNews from "@/page/home/LatestNews";
-import AboutCompany from "@/page/home/About"; 
-import GovernmentExpertise from "@/page/home/Specialization";
-import ProjectStats from "@/page/home/ProjectStatisticsBar";
-import GovernmentClients from "@/page/home/Client";
+import Footer from "../components/footer/Footer";
+import Navbar from "../components/navbar/Navbar";
+import NotificationBar from "../components/notificationBar";
+import HeroSlider from "../page/home/HeroSlider";
+import LatestNews from "../page/home/LatestNews";
+import AboutCompany from "../page/home/About"; 
+import GovernmentExpertise from "../page/home/Specialization";
+import ProjectStats from "../page/home/ProjectStatisticsBar";
+import GovernmentClients from "../page/home/Client";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },

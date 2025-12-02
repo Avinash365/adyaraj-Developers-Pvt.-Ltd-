@@ -1,9 +1,9 @@
 'use client';
 
 import Head from "next/head";
-import Navbar from "@/components/navbar/Navbar";
-import ContactUS from "@/page/contactUS/contact";
-import Footer from "@/components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import ContactUS from "../../page/contactUS/contact";
+import Footer from "../../components/footer/Footer";
 
 export default function ContactPage() {
   return (
