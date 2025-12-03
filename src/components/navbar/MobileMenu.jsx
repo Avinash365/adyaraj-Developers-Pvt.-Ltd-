@@ -24,7 +24,25 @@ export default function MobileMenu({ navLinks, menuOpen, setMenuOpen }) {
               >
                 {link.name}
               </a>
-            ))}
+            ))} 
+            <a
+                key={'Director’s Message'}
+                href={'/aboutUs/directors-message'}
+                onClick={() => setMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
+                           hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
+              >
+                {'Director’s Message'}
+              </a> 
+              <a
+                key={'Our Network'}
+                href={'/aboutUs/our-network'}
+                onClick={() => setMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
+                           hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
+              >
+                {'Our Network'}
+              </a>
 
             {/* Tender Info button with hover effect */}
             <motion.a

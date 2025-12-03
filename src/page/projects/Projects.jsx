@@ -4,11 +4,9 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "remixicon/fonts/remixicon.css";
 
-export default function Projects() {
-  // Tabs
-  const tabs = ["Ongoing Projects", "Completed Projects"];
 
-  const iconMap = {
+
+const iconMap = {
     railway: "ri-train-line",
     medical: "ri-hospital-line",
     educational: "ri-book-2-line",
@@ -16,9 +14,9 @@ export default function Projects() {
     tourism: "ri-tree-line",
   };
 
-  // Project Data
+// Project Data
   const projects = [
-    // ✅ Ongoing Projects
+    // Ongoing Projects
     {
       id: 1,
       title: "School of Law Building in CUSB Campus",
@@ -119,7 +117,7 @@ export default function Projects() {
       image: "/images/project/railway-koderma.png",
     },
 
-    // ✅ Completed Projects
+    //  Completed Projects
     {
       id: 51,
       title: "Institute of Petro Chemicals Technology",
@@ -331,13 +329,22 @@ export default function Projects() {
     },
   ];
 
+
+export default function Projects() {
+  // Tabs
+  const tabs = ["Ongoing Projects", "Completed Projects"];
+
+  
+
+  
+
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const filteredProjects = projects.filter((p) => p.type === activeTab);
 
   return (
-    <section className="bg-gray-50 py-16 relative px-[100px]">
+    <section className="bg-gray-50 py-16 relative md:px-[100px]">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-12">

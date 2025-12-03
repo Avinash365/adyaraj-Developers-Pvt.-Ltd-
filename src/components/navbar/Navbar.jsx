@@ -1,12 +1,13 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const aboutRef = useRef(null);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -16,6 +17,17 @@ export default function Navbar() {
     { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contactUs" },
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (aboutRef.current && !aboutRef.current.contains(event.target)) {
+        setAboutOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="fixed w-full z-50 shadow-md">
@@ -56,41 +68,52 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Links */}
-            <div className="hidden md:flex space-x-6 items-center">
-              {/* About dropdown: uses CSS hover to rotate arrow */}
-              <div className="group relative">
-                <span className="flex items-center text-gray-700 hover:text-orange-600 cursor-pointer transition-colors duration-300">
+            <div className="hidden lg:flex space-x-6 items-center">
+              {/* ABOUT DROPDOWN — CLICK TO OPEN */}
+              <div className="relative" ref={aboutRef}>
+                <button
+                  onClick={() => setAboutOpen(!aboutOpen)}
+                  className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300"
+                >
                   About
-                  {/* arrow points UP visually (use up icon) and rotates 180deg on hover (becomes down) */}
-                  <i className="ri-arrow-up-s-line ml-1 transition-transform duration-300 group-hover:rotate-180" />
-                </span>
+                  <i
+                    className={`ri-arrow-up-s-line ml-1 transition-transform duration-300 ${
+                      aboutOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-                {/* Dropdown Menu (visible on hover) */}
-                <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
-                  <Link
-                    href="/aboutUs"
-                    className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                  >
-                    Company Profile
-                  </Link>
+                {/* Dropdown Menu */}
+                {aboutOpen && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-20">
+                    <Link
+                      href="/aboutUs"
+                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
+                      onClick={() => setAboutOpen(false)}
+                    >
+                      Company Profile
+                    </Link>
 
-                  <Link
-                    href="/aboutUs/directors-message"
-                    className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                  >
-                    Director’s Message
-                  </Link>
+                    <Link
+                      href="/aboutUs/directors-message"
+                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
+                      onClick={() => setAboutOpen(false)}
+                    >
+                      Director’s Message
+                    </Link>
 
-                  <Link
-                    href="/aboutUs/our-network"
-                    className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                  >
-                    Our Network
-                  </Link>
-                </div>
+                    <Link
+                      href="/aboutUs/our-network"
+                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
+                      onClick={() => setAboutOpen(false)}
+                    >
+                      Our Network
+                    </Link>
+                  </div>
+                )}
               </div>
 
-              {/* Other Links */}
+              {/* Other Nav Links */}
               {navLinks
                 .filter((link) => link.name !== "About")
                 .map((link) => (
@@ -105,7 +128,7 @@ export default function Navbar() {
             </div>
 
             {/* Tender Info Button */}
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <Link
                 href="/"
                 className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md shadow-md transition"
@@ -115,7 +138,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Hamburger */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="text-gray-700 hover:text-orange-600 focus:outline-none transition-colors duration-300"

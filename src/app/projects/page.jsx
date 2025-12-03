@@ -1,40 +1,32 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import Projects from "../../page/projects/Projects";
 import GalleryHero from "../../page/projects/HeroSection";
-
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-};
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    // small delay to allow SSR -> client handoff visually
+    const t = setTimeout(() => setVisible(true), 50);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div>
-      <Navbar/> 
-         <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-        >
-            <GalleryHero/>
-        </motion.div>
-    
-      <motion.div
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <Projects/>
-      </motion.div>
+      <Navbar />
 
-      <Footer/>
+      <div className={`transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0"}`}>
+        <GalleryHero />
+      </div>
+
+      <div className={`transition-opacity duration-500 delay-100 ${visible ? "opacity-100" : "opacity-0"}`}>
+        <Projects />
+      </div>
+
+      <Footer />
     </div>
   );
 }
