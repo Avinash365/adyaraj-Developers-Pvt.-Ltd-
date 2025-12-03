@@ -11,7 +11,7 @@ export default function MobileMenu({ navLinks, menuOpen, setMenuOpen }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="md:hidden backdrop-blur-md bg-white/95 shadow-lg border-t border-gray-200"
+          className="lg:hidden backdrop-blur-md bg-white/95 shadow-lg border-t border-gray-200"
         >
           <div className="px-4 pt-2 pb-4 space-y-2">
             {navLinks.map((link) => (
