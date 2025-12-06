@@ -10,15 +10,11 @@ const companyInfo = {
 
 const quickLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-
-//   { name: "Company Profile", href: "/about/company-profile" },
-// { name: "Director's Message", href: "/about/directors-message" },
-// { name: "Our Network", href: "/about/our-network" },
-
+  { name: "About Us", href: "/aboutUs" },
   { name: "Projects", href: "/projects" },
+  { name: "Gallery", href: "/gallery" },
   { name: "Careers", href: "/careers" },
-  { name: "Contact", href: "/contact" },
+  { name: "Contact", href: "/contactUs" },
 ];
 
 const contactInfo = {

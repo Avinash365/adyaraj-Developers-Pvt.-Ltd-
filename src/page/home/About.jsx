@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
@@ -241,13 +242,15 @@ export default function AboutCompany() {
 
       {/* Learn more button */}
       <div className="flex justify-center mt-10">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          className="bg-orange-500 hover:bg-orange-600 cursor-pointer text-white font-medium rounded-xl px-8 py-4 shadow-lg"
-        >
-          {company.button}
-        </motion.button>
+        <Link href="/aboutUs">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            className="bg-orange-500 hover:bg-orange-600 cursor-pointer text-white font-medium rounded-xl px-8 py-4 shadow-lg"
+          >
+            {company.button}
+          </motion.button>
+        </Link>
       </div>
     </section>
   );
