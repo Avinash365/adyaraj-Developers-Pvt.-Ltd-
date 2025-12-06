@@ -14,7 +14,7 @@ export default function Careers() {
         style={{
           backgroundImage: `
             linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-            url("https://readdy.ai/api/search-image?query=Professional%20construction%20team%20at%20work%2C%20diverse%20group%20of%20engineers%20and%20construction%20workers%2C%20modern%20construction%20site%2C%20teamwork%20and%20collaboration%2C%20career%20opportunities%20in%20construction%2C%20professional%20development%2C%20bright%20workplace%20environment&width=1920&height=600&seq=careers-hero&orientation=landscape")
+            url("/images/other/career.jpg")
           `,
           backgroundSize: "cover",
           backgroundPosition: "center",

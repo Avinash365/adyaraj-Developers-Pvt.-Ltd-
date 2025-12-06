@@ -2,12 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const aboutRef = useRef(null);
+  const hoverTimeoutRef = useRef(null);
+  const pathname = usePathname();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -28,6 +31,55 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Cleanup hover timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  /**
+   * isActive(href, exact = false)
+   * - For "/" (root) we match only when pathname === "/"
+   * - If exact=true we require pathname === href
+   * - Otherwise we match either exact or pathname starting with href + "/"
+   */
+  const isActive = (href, exact = false) => {
+    if (!pathname) return false;
+    if (href === "/") return pathname === "/";
+    if (exact) return pathname === href;
+    return pathname === href || pathname.startsWith(href + "/");
+  };
+
+  // Hover handlers (desktop). We keep a short delay when closing to avoid accidental flicker.
+  const handleAboutMouseEnter = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setAboutOpen(true);
+  };
+
+  const handleAboutMouseLeave = () => {
+    // small delay so user can move cursor into menu
+    hoverTimeoutRef.current = setTimeout(() => {
+      setAboutOpen(false);
+      hoverTimeoutRef.current = null;
+    }, 120);
+  };
+
+  // Toggle on click (useful for keyboard/touch)
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setAboutOpen((s) => !s);
+  };
 
   return (
     <nav className="fixed w-full z-50 shadow-md">
@@ -69,62 +121,108 @@ export default function Navbar() {
 
             {/* Desktop Links */}
             <div className="hidden lg:flex space-x-6 items-center">
-              {/* ABOUT DROPDOWN — CLICK TO OPEN */}
-              <div className="relative" ref={aboutRef}>
-                <button
-                  onClick={() => setAboutOpen(!aboutOpen)}
-                  className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300"
-                >
-                  About
-                  <i
-                    className={`ri-arrow-up-s-line ml-1 transition-transform duration-300 ${
-                      aboutOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
+              {navLinks.map((link) => {
+                // ABOUT DROPDOWN (placed in correct order)
+                if (link.name === "About") {
+                  const aboutActive = isActive("/aboutUs"); // main About highlighted when any about page or nested
 
-                {/* Dropdown Menu */}
-                {aboutOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-20">
-                    <Link
-                      href="/aboutUs"
-                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                      onClick={() => setAboutOpen(false)}
+                  return (
+                    <div
+                      key="About"
+                      ref={aboutRef}
+                      // important: wrapper contains both the button and the menu so mouse stays inside
+                      onMouseEnter={handleAboutMouseEnter}
+                      onMouseLeave={handleAboutMouseLeave}
+                      className="relative"
                     >
-                      Company Profile
-                    </Link>
+                      <button
+                        onClick={handleAboutClick}
+                        aria-expanded={aboutOpen}
+                        aria-haspopup="true"
+                        className={`flex items-center gap-2 transition-colors duration-200 px-2 py-1 rounded-md ${
+                          aboutActive ? "text-orange-600" : "text-gray-700 hover:text-orange-600"
+                        }`}
+                      >
+                        {/* reversed icon logic (down when closed, up when open) */}
+                        <span className="select-none">About</span>
+                        <i
+                          className={`ri-arrow-down-s-line transition-transform duration-200 ${
+                            aboutOpen ? "rotate-180" : ""
+                          }`}
+                          aria-hidden
+                        />
+                      </button>
 
-                    <Link
-                      href="/aboutUs/directors-message"
-                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                      onClick={() => setAboutOpen(false)}
-                    >
-                      Director’s Message
-                    </Link>
+                      <div
+                        // show on desktop only (desktop links are hidden on mobile)
+                        className={`absolute left-0 mt-3 min-w-[220px] bg-white rounded-none shadow-2xl z-50 transform transition-all duration-200 origin-top overflow-hidden ${
+                          aboutOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"
+                        }`}
+                        role="menu"
+                        aria-label="About submenu"
+                        style={{ willChange: "transform, opacity" }}
+                      >
+                        <div className="py-2">
+                          <Link
+                            href="/aboutUs"
+                            onClick={() => setAboutOpen(false)}
+                            className={`flex items-center px-4 py-2 text-sm ${
+                              isActive("/aboutUs", true)
+                                ? "text-orange-600 bg-orange-50"
+                                : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                            }`}
+                            role="menuitem"
+                          >
+                            <i className="ri-building-4-line mr-3 text-lg"></i>
+                            Company Profile
+                          </Link>
 
-                    <Link
-                      href="/aboutUs/our-network"
-                      className="block px-4 py-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600"
-                      onClick={() => setAboutOpen(false)}
-                    >
-                      Our Network
-                    </Link>
-                  </div>
-                )}
-              </div>
+                          <Link
+                            href="/aboutUs/directors-message"
+                            onClick={() => setAboutOpen(false)}
+                            className={`flex items-center px-4 py-2 text-sm ${
+                              isActive("/aboutUs/directors-message", true)
+                                ? "text-orange-600 bg-orange-50"
+                                : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                            }`}
+                            role="menuitem"
+                          >
+                            <i className="ri-user-voice-line mr-3 text-lg"></i>
+                            Director’s Message
+                          </Link>
 
-              {/* Other Nav Links */}
-              {navLinks
-                .filter((link) => link.name !== "About")
-                .map((link) => (
+                          <Link
+                            href="/aboutUs/our-network"
+                            onClick={() => setAboutOpen(false)}
+                            className={`flex items-center px-4 py-2 text-sm ${
+                              isActive("/aboutUs/our-network", true)
+                                ? "text-orange-600 bg-orange-50"
+                                : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                            }`}
+                            role="menuitem"
+                          >
+                            <i className="ri-share-forward-line mr-3 text-lg"></i>
+                            Our Network
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Normal nav links (Home special-cased inside isActive)
+                return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="flex items-center text-gray-700 hover:text-orange-600 transition-colors duration-300"
+                    className={`flex items-center transition-colors duration-200 px-2 py-1 rounded-md ${
+                      isActive(link.href) ? "text-orange-600" : "text-gray-700 hover:text-orange-600"
+                    }`}
                   >
                     {link.name}
                   </Link>
-                ))}
+                );
+              })}
             </div>
 
             {/* Tender Info Button */}

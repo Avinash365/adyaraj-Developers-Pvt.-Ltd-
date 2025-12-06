@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MobileMenu({ navLinks, menuOpen, setMenuOpen }) {
+  const [aboutOpen, setAboutOpen] = useState(false);
+
   return (
     <AnimatePresence>
       {menuOpen && (
@@ -14,37 +17,88 @@ export default function MobileMenu({ navLinks, menuOpen, setMenuOpen }) {
           className="lg:hidden backdrop-blur-md bg-white/95 shadow-lg border-t border-gray-200"
         >
           <div className="px-4 pt-2 pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
-                           hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
-              >
-                {link.name}
-              </a>
-            ))} 
-            <a
-                key={'Director’s Message'}
-                href={'/aboutUs/directors-message'}
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
-                           hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
-              >
-                {'Director’s Message'}
-              </a> 
-              <a
-                key={'Our Network'}
-                href={'/aboutUs/our-network'}
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 
-                           hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
-              >
-                {'Our Network'}
-              </a>
 
-            {/* Tender Info button with hover effect */}
+            {navLinks.map((link) => {
+              // ABOUT DROPDOWN (NO ICON HERE)
+              if (link.name === "About") {
+                return (
+                  <div key="About">
+                    <button
+                      onClick={() => setAboutOpen(!aboutOpen)}
+                      className="flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium text-gray-700
+                                 hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
+                    >
+                      <span>About</span>
+
+                      {/* + / - toggle */}
+                      <i
+                        className={`text-xl ${
+                          aboutOpen ? "ri-subtract-line" : "ri-add-line"
+                        }`}
+                      ></i>
+                    </button>
+
+                    {/* Submenu Animation */}
+                    <AnimatePresence>
+                      {aboutOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="ml-6 mt-1 space-y-2"
+                        >
+                          <a
+                            href="/aboutUs"
+                            onClick={() => setMenuOpen(false)}
+                            className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700
+                                       hover:text-orange-600 hover:bg-orange-50 transition"
+                          >
+                            <i className="ri-building-4-line text-lg"></i>
+                            Company Profile
+                          </a>
+
+                          <a
+                            href="/aboutUs/directors-message"
+                            onClick={() => setMenuOpen(false)}
+                            className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700
+                                       hover:text-orange-600 hover:bg-orange-50 transition"
+                          >
+                            <i className="ri-user-voice-line text-lg"></i>
+                            Director’s Message
+                          </a>
+
+                          <a
+                            href="/aboutUs/our-network"
+                            onClick={() => setMenuOpen(false)}
+                            className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700
+                                       hover:text-orange-600 hover:bg-orange-50 transition"
+                          >
+                            <i className="ri-share-forward-line text-lg"></i>
+                            Our Network
+                          </a>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              //  Normal menu items
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700
+                             hover:text-orange-600 hover:bg-orange-50 transition-colors duration-300"
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+
+            {/* Tender Info button */}
             <motion.a
               href="/quote"
               onClick={() => setMenuOpen(false)}

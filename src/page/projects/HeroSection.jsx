@@ -8,7 +8,7 @@ export default function GalleryHero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
-          src="/images/other/6.jpg"
+          src="/images/other/6.webp"
           alt="Construction Projects Gallery"
           className="w-full h-full object-cover object-center"
         />

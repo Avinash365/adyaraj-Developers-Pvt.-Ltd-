@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Head from "next/head";
 import { motion } from "framer-motion";
@@ -44,19 +44,19 @@ export default function ContactPage() {
         {/* Replace orange gradient with your image */}
         <div className="absolute inset-0">
           <img
-            src="/images/other/4.jpg"
+            src="/images/other/3.png"
             alt="Contact Us Banner"
             className="w-full h-full object-cover"
           />
           {/* Overlay for readability */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="z-10 space-y-4 px-6"
+          className="z-10 space-y-4 px-6 mt-26"
         >
           <h1 className="text-white text-5xl md:text-6xl font-bold tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
             Contact Us
@@ -147,7 +147,7 @@ export default function ContactPage() {
 
       {/* Statement Section */}
       <section className="relative bg-gray-900 py-20 text-center text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/other/1.jpg')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-[url('/images/other/1.webp')] bg-cover bg-center opacity-10"></div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

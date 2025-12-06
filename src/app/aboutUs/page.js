@@ -14,7 +14,7 @@ export default function AboutUs() {
       <section
         className="relative h-[400px] flex items-center justify-center bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://readdy.ai/api/search-image?query=Professional%20construction%20company%20office%20building%20exterior%2C%20modern%20corporate%20architecture%2C%20glass%20facade%20with%20steel%20structure%2C%20company%20signage%2C%20professional%20business%20environment%2C%20clean%20corporate%20design%2C%20bright%20daylight%2C%20architectural%20photography%20style&width=1920&height=600&seq=about-hero&orientation=landscape")`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(36, 18, 3, 0.94)), url("/images/other/2.webp")`,
         }}
       >
         <div className="text-center text-white px-4">
@@ -56,7 +56,7 @@ export default function AboutUs() {
           <div className="flex justify-center">
             <div className="bg-orange-100 p-2 rounded-2xl shadow-lg">
               <img
-                src="https://readdy.ai/api/search-image?query=Professional%20construction%20company%20founders%20and%20management%20team%2C%20business%20executives%20in%20formal%20attire%2C%20corporate%20portrait%20photography%2C%20modern%20office%20setting%2C%20confident%20leadership%20team%2C%20professional%20business%20environment%2C%20high-quality%20corporate%20photography&width=600&height=400&seq=founders&orientation=landscape"
+                src="/images/other/1.webp"
                 alt="Our Team"
                 className="object-cover rounded-xl"
               />
