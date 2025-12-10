@@ -82,9 +82,7 @@ export default function DirectorsMessage() {
               <Quote className="w-10 h-10 text-orange-200 flex-shrink-0" />
               {/* Added text-justify here */}
               <p className="text-xl md:text-2xl text-slate-700 font-serif italic leading-relaxed text-justify">
-                "Building infrastructure is not merely about concrete and
-                steel—it is about creating enduring value for the communities we
-                serve and the partners who trust us."
+                  {"\"Building infrastructure is not merely about concrete and steel—it is about creating enduring value for the communities we serve and the partners who trust us.\""}
               </p>
             </div>
 
