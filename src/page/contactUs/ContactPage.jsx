@@ -14,12 +14,12 @@ export default function ContactPage() {
     {
       icon: <Phone className="w-6 h-6 text-orange-600" />,
       title: "Contact Numbers",
-      text: "+91 9334485893\n0612-2520018\n0612-6604972",
+      text: "+91 9334485893",
     },
     {
       icon: <Mail className="w-6 h-6 text-orange-600" />,
       title: "Email",
-      text: "webmail@adyaraj.com\nadyaraj.developers.p@gmail.com",
+      text: "webmail@adyaraj.com\nadyaraj.dev@gmail.com",
     },
     {
       icon: <Clock className="w-6 h-6 text-orange-600" />,

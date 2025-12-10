@@ -5,7 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import Image from "next/image"; 
 
 const slides = [
   {
@@ -59,16 +60,6 @@ export default function HeroSlider() {
   const [active, setActive] = useState(0);
   const sliderRef = useRef(null);
 
-  // Preload images on client only to prevent stutter
-  useEffect(() => {
-    slides.forEach((slide) => {
-      const img = new window.Image();
-      img.src = slide.image;
-    });
-  }, []);
-
-  const autoplaySpeed = 5000; // Increased slightly for better readability
-
   const settings = {
     dots: true,
     infinite: true,
@@ -76,15 +67,16 @@ export default function HeroSlider() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed,
+    autoplaySpeed: 5000,
     arrows: true,
-    pauseOnHover: false, // Changed to false to prevent "stuck" feeling when mouse accidentally hovers
-    fade: false,
-    cssEase: "cubic-bezier(0.87, 0, 0.13, 1)", // Smoother easing function
-    waitForAnimate: false, // Prevents locking controls during animation
+    pauseOnHover: false,
+    fade: false, 
+    cssEase: "cubic-bezier(0.7, 0, 0.3, 1)", 
+    waitForAnimate: false,
     beforeChange: (_, next) => setActive(next),
     nextArrow: <Arrow direction="right" />,
     prevArrow: <Arrow direction="left" />,
+    useTransform: true, 
     appendDots: (dots) => (
       <div className="absolute bottom-6 w-full flex justify-center items-center z-30">
         <ul className="flex gap-3">{dots}</ul>
@@ -108,27 +100,33 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative h-screen w-full overflow-hidden bg-gray-900">
       <Slider ref={sliderRef} {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative h-screen w-full outline-none">
-            {/* FIX: Changed motion.div to standard div. 
-               Removed initial/animate/exit opacities on the background.
-               This ensures the image is ALREADY there when the slide scrolls in.
-            */}
-            <div
-              className="absolute inset-0 bg-center bg-cover"
-              style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${slide.image})`,
-              }}
-            />
+            
+            {/* Optimized Image Loading */}
+            <div className="absolute inset-0 select-none">
+               <Image
+                 src={slide.image}
+                 alt={slide.title}
+                 fill
+                 priority={index === 0 || index === 1} 
+                 sizes="100vw"
+                 className="object-cover"
+                 style={{ 
+                   filter: 'brightness(0.6)', 
+                   willChange: 'transform'
+                 }} 
+               />
+            </div>
 
-            {/* Slide Content - We keep animations here, but reset them on 'active' state */}
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-16">
+            {/* Slide Content */}
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-16 z-10">
               {active === index && (
                 <>
                   <motion.h1
-                    className="text-4xl md:text-6xl font-bold text-white"
+                    className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg"
                     initial={{ y: -30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.8 }}
@@ -138,7 +136,7 @@ export default function HeroSlider() {
                   </motion.h1>
 
                   <motion.p
-                    className="mt-4 text-white text-sm md:text-lg max-w-2xl"
+                    className="mt-4 text-white text-sm md:text-lg max-w-2xl drop-shadow-md"
                     initial={{ y: 30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.8 }}

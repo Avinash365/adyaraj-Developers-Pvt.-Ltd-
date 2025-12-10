@@ -23,7 +23,7 @@ const contactInfo = {
     "East Boring Canal Road",
     "Patna, Bihar - 800001",
   ],
-  phone: "+91 9334485593, +91 9431050079, +91 9472884865",
+  phone: "+91 9334485893, +91 9431050079, +91 9472884865",
   email: "webmail@adyaraj.com,  adyaraj.dev@gmail.com",
   icons: {
     address: "ri-map-pin-line",

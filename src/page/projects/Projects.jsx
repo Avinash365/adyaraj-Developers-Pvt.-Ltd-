@@ -103,7 +103,7 @@ const iconMap = {
       status: "In Progress",
       type: "Ongoing Projects",
       iconClass: iconMap["infrastructure"],
-      image: "/images/project/railway-koderma.png",
+      image: "/images/project/bazar_samiti_bettiah.png",
     },
     {
       id: 9,
@@ -114,7 +114,7 @@ const iconMap = {
       status: "In Progress",
       type: "Ongoing Projects",
       iconClass: iconMap["infrastructure"],
-      image: "/images/project/railway-koderma.png",
+      image: "/images/project/adalatganj.jpg",
     },
 
     //  Completed Projects
@@ -139,17 +139,6 @@ const iconMap = {
       type: "Completed Projects",
       iconClass: iconMap["educational"],
       image: "/images/project/belatadi.jpg",
-    },
-    {
-      id: 53,
-      title: "Krshi Jaiv Prowdyogiki Mahavidyalay",
-      location: "Sabour, Bihar",
-      desc: "Agricultural college completed ahead of schedule.",
-      category: "Educational Building",
-      status: "Completed",
-      type: "Completed Projects",
-      iconClass: iconMap["educational"],
-      image: "/images/project/krishi-sabour.jpeg",
     },
     {
       id: 54,

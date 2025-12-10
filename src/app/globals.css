@@ -59,3 +59,15 @@ body {
   background-size: 200% 200%;
   animation: gradient-x 6s ease infinite;
 }
+
+/* FIX FOR SLIDER STUTTER */
+.slick-slider, .slick-list, .slick-track, .slick-slide {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
